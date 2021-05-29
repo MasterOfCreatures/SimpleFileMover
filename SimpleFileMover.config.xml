@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <base>
+    <log path=""/>
+    <stopfile path=""/>
+  </base>
+  <tasks>
+    <task id="test" enable="true">
+      <timer iteration="10s" timeTableRef="everytime"/>
+      <input path="C:\Users\moc\Desktop\input" mask="*.csv" depth="0" recursive="false"/>
+      <temp enable="false" path="C:\Users\moc\Desktop\temporary" mask=".ora"/>
+      <renameByDate enable="false" prefix="test_" name="yyyy_MM_dd_hh_ss" suffix="_testfile.csvv"/>
+      <renameByCount enable="true" prefix="this_is_a_prefix_" suffix="_count.csvv" countStart="000001" countEnd="11100" math="$+1" countFile="test.111.count"/>
+      <backup enable="true">
+        <path value="C:/testbackup" enable="true" backupModeRef="treeByDate"/>
+        <path value="C:/testbackup" enable="true" backupModeRef="splitByUnderscore"/>
+        <path value="C:/testbackup" enable="true" backupModeRef="bySubstringTreeDate"/>
+      </backup>
+      <copylist enable="true">
+        <path value="C:\Users\moc\Desktop\copy1" enable="true" override="true"/>  
+        <path value="C:\Users\moc\Desktop\copy2" enable="true" override="true"/>  
+        <path value="C:\Users\moc\Desktop\copy3" enable="false" override="true"/>  
+      </copylist>
+      <move path="C:\Users\moc\Desktop\output" enable="true" override="true"/>
+      <delete enable="true" keepFile="keeptasktest.keep"/>
+    </task>
+    <task id="notest" enable="false">
+    <timer iteration="10s" timeTableRef="everytime"/>
+    <input path="C:\Users\moc\Desktop\input" mask="*.csv" depth="0" recursive="false"/>
+    <temp enable="true" path="C:\Users\moc\Desktop\temporary" mask=".ora"/>
+    <renameByDate enable="true" prefix="test_" name="yyyy_mm_dd" suffix="_testfile.csvv"/>
+    <renameByCount enable="false" prefix="this_is_a_prefix_" suffix="_count.csvv" countStart="000001" countEnd="000100" math="$+1" countFile="test.111.count"/>
+    <backup enable="false">
+      <path value="C:/testbackup" enable="true" backupModeRef="treeByDate"/>
+      <path value="C:/testbackup" enable="true" backupModeRef="splitByUnderscore"/>
+    </backup>
+    <copylist enable="true">
+      <path value="C:\Users\moc\Desktop\copy1" enable="true" override="true"/>
+    </copylist>
+    <move path="C:\Users\moc\Desktop\output" enable="true" override="true"/>
+    <delete enable="true" keepFile="keeptasktest.keep"/>
+    </task>
+  </tasks>
+  <backupModes>
+    <backupMode name="poolByDate">
+      <folder name="[yyyy]-[mm]-[dd]" fileAttribute="modificationTime+modificationTime+modificationTime"/><!-- not implemented yet-->
+    </backupMode>
+    <backupMode name="treeByDate">
+      <folder name="[yyyy]" fileAttribute="creationTime"/>
+      <folder name="[MM]" fileAttribute="creationTime"/>
+      <folder name="[dd]" fileAttribute="creationTime"/>
+    </backupMode>
+    <backupMode name="bySubstringTreeDate">
+      <folder name="[1-2]_[1-6]" fileAttribute="substring+substring"/><!-- not implemented yet-->
+      <folder name="[yyyy]" fileAttribute="modificationTime"/>
+      <folder name="[MMMM]" fileAttribute="modificationTime"/>
+      <folder name="[dddd]" fileAttribute="modificationTime"/>
+    </backupMode>
+    <backupMode name="splitByUnderscore">
+      <folder name="[0:_]" fileAttribute="split"/><!-- not implemented yet-->
+    </backupMode>
+  </backupModes>
+
+  <timeTables>
+    <timeTable name="everytime">
+      <year start="0" end="0"><!-- simply does not keep Time of Year-->
+        <month start="0" end="0"><!-- would start at 1 and end on 12-->
+          <day start="0" end="0"><!-- would start at 1 and end on 31-->
+            <monday start="00:00:01" end="23:59:59"/>
+            <tuesday start="00:00:01" end="23:59:59"/>
+            <wednesday start="00:00:01" end="23:59:59"/>
+            <thursday start="00:00:01" end="23:59:59"/>
+            <friday start="00:00:01" end="23:59:59"/>
+            <saturday start="00:00:01" end="23:59:59"/>
+            <sunday start="00:00:01" end="23:59:59"/>
+          </day>
+        </month>
+      </year>
+    </timeTable>
+  </timeTables>
+  
+  
+</config>

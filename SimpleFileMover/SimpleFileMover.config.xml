@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <base>
+    <log path=""/>
+  </base>
+  <tasks>
+    <task id="test" enable="true">
+      <timer iteration="10s" timeTableRef="everytime"/>
+      <input path="C:/input" mask="*.pdf" depth="0" recursive="false"/>
+      <temp enable="false" path="" mask=""/>
+      <renameByDate enable="true" prefix="" name="YYYY_MM_DD" suffix="_testfile.csvv"/>
+      <renameByCount enable="false" prefix="this_is_a_prefix_" suffix="_count.csvv" countStart="000001" countEnd="000100" math="$+1"/>
+      <backup enable="true">
+        <path value="C:/testbackup" enable="true" backupmoderef="treeByDate"/>
+      </backup>
+      <copylist>
+        <copy enable="false" path="" override="true"/>  
+      </copylist>
+      <move enable="" path="" override="true"/>
+      <delete enable="false"/>
+    </task>
+  </tasks>
+  <backupModes>
+    <backupmode name="poolByDate">
+      <folder name="[YYYY]-[MM]-[DD]" fileAttribute="modificationTime"/><!-- not implemented yet-->
+    </backupmode>
+    <backupmode name="poolBySize">
+      <folder name="[floor:megabyte]" FileAttribute="size"/><!-- not implemented yet-->
+    </backupmode>
+    <backupmode name="treeByDate">
+      <folder name="[YYYY]" fileAttribute="modificationTime"/>
+      <folder name="[MM]" fileAttribute="modificationTime"/>
+      <folder name="[DD]" fileAttribute="modificationTime"/>
+    </backupmode>
+    <backupmode name="bySubstringTreeDate">
+      <folder name="[24-36]_[1-2]" fileAttribute="substring"/><!-- not implemented yet-->
+      <folder name="[YYYY]" fileAttribute="modificationTime"/>
+      <folder name="[MM]" fileAttribute="modificationTime"/>
+      <folder name="[DD]" fileAttribute="modificationTime"/>
+    </backupmode>
+    <backupmode name="splitByUnderscore">
+      <folder name="[0:'_']" fileAttribute="split"/><!-- not implemented yet-->
+    </backupmode>
+  </backupModes>
+
+  <TimeTables>
+    <timeTable name="everytime">
+      <year start="0" end="0"><!-- simply does not keep Time of Year-->
+        <month start="0" end="0"><!-- would start at 1 and end on 12-->
+          <day start="0" end="0"><!-- would start at 1 and end on 31-->
+            <monday start="00:00:01" end="23:59:59"/>
+            <tuesday start="00:00:01" end="23:59:59"/>
+            <wednesday start="00:00:01" end="23:59:59"/>
+            <thursday start="00:00:01" end="23:59:59"/>
+            <friday start="00:00:01" end="23:59:59"/>
+            <saturday start="00:00:01" end="23:59:59"/>
+            <sunday start="00:00:01" end="23:59:59"/>
+          </day>
+        </month>
+      </year>
+    </timeTable>
+  </TimeTables>
+  
+  
+</config>
